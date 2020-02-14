@@ -5,7 +5,6 @@ import pygame
 class Snake:
 	cor = (0,255,0)
 	tamanho = (10, 10)
-	velocidade = 10
 	tamanho_maximo = 49 * 49
 
 	def __init__(self):
@@ -14,6 +13,7 @@ class Snake:
 		self.corpo = [(100,100), (90,100), (80,100)]
 		self.direcao = 'direita'
 		self.pontos = 0
+		self.velocidade = 10
 
 
 	def blit(self, screen):
@@ -26,13 +26,13 @@ class Snake:
 		x = cabeca[0]
 		y = cabeca[1]
 		if self.direcao == 'direita':
-			self.corpo.insert(0, (x + self.velocidade, y))
+			self.corpo.insert(0, (x + 10, y))
 		elif self.direcao == 'esquerda':
-			self.corpo.insert(0, (x - self.velocidade, y))
+			self.corpo.insert(0, (x - 10, y))
 		elif self.direcao == 'cima':
-			self.corpo.insert(0, (x, y - self.velocidade))
+			self.corpo.insert(0, (x, y - 10))
 		elif self.direcao == 'baixo':
-			self.corpo.insert(0, (x, y + self.velocidade))	
+			self.corpo.insert(0, (x, y + 10))	
 		self.corpo.pop(-1)
 
 	
@@ -74,6 +74,28 @@ class Snake:
 		return x < 0 or y < 0 or x > 490 or y > 490 or cabeca in corpo or len(self.corpo) > self.tamanho_maximo
 
 
+	def dificuldade(self):
+		if self.pontos >= 5:
+			self.velocidade += 1
+		elif self.pontos >=10:
+			self.velocidade += 1
+		elif self.pontos >=15:
+			self.velocidade += 1
+		elif self.pontos >=20:
+			self.velocidade += 1
+		elif self.pontos >=25:
+			self.velocidade += 1
+		elif self.pontos >=30:
+			self.velocidade += 1
+		elif self.pontos >=35:
+			self.velocidade += 1
+		elif self.pontos >=40:
+			self.velocidade += 1
+		elif self.pontos >=45:
+			self.velocidade += 1
+		elif self.pontos >=50:
+			self.velocidade += 1
+
 
 class Frutinha:
 	cor = (255,0,0)
@@ -96,8 +118,8 @@ class Frutinha:
 
 
 	def blit(self, screen):
-		screen.blit(frutinha.textura, frutinha.posicao)
-
+			screen.blit(frutinha.textura, frutinha.posicao)
+			
 
 if __name__ == "__main__":
 	pygame.init()
@@ -110,25 +132,24 @@ if __name__ == "__main__":
 
 	cobrinha = Snake()
 	frutinha = Frutinha(cobrinha)
-	
 
 	while True:
-		clock.tick(18)
+		clock.tick(cobrinha.velocidade)
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				exit()
 
 			elif event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_UP:
+				if event.key == pygame.K_UP or event.key == pygame.K_w:
 					cobrinha.cima()
 					break
-				elif event.key == pygame.K_DOWN:
+				elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
 					cobrinha.baixo()
 					break
-				elif event.key == pygame.K_LEFT:
+				elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
 					cobrinha.esquerda()
 					break
-				elif event.key == pygame.K_RIGHT:
+				elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
 					cobrinha.direita()
 					break
 
@@ -136,6 +157,7 @@ if __name__ == "__main__":
 
 		if cobrinha.colisao_frutinha(frutinha):
 			cobrinha.comer()
+			cobrinha.dificuldade()
 			frutinha = Frutinha(cobrinha)
 
 		if cobrinha.colisao_de_morte():
