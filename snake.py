@@ -164,9 +164,12 @@ if __name__ == "__main__":
 			cobrinha = Snake()
 			pygame.display.set_caption('Snake')
 
-		cobrinha.andar()	
+		cobrinha.andar()
 		screen.fill(preto)
-		frutinha.blit(screen)
+		try:
+			frutinha.blit(screen)
+		except:
+			frutinha.blit(screen)
 		cobrinha.blit(screen)
 		pygame.display.update()
 			
