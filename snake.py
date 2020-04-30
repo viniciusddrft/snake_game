@@ -60,7 +60,7 @@ class Snake:
 		return self.corpo[0] == frutinha.posicao
 
 	def comer(self):
-		self.corpo.append((0, 0))
+		self.corpo.append((700, 700))
 		self.pontos += 1
 		pygame.display.set_caption('Snake | Pontos : {}'.format(self.pontos))
 
