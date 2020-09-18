@@ -111,10 +111,9 @@ class Frutinha:
 	def criar_posicao(cobrinha):
 		x = random.randint(0,49) * 10
 		y = random.randint(0,49) * 10
-		if (x , y) in cobrinha.corpo:
+		while (x , y) in cobrinha.corpo:
 			frutinha.criar_posicao(cobrinha)
-		else:
-			return x, y
+		return x, y
 
 
 	def blit(self, screen):
