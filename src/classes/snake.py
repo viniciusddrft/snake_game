@@ -14,11 +14,9 @@ class Snake:
 		self.pontos = 0
 		self.velocidade = 10
 
-
 	def blit(self, screen):
 		for posicao in self.corpo:
 			screen.blit(self.textura, posicao)
-
 
 	def andar(self):
 		cabeca = self.corpo[0]
@@ -33,27 +31,22 @@ class Snake:
 		elif self.direcao == 'baixo':
 			self.corpo.insert(0, (x, y + 10))	
 		self.corpo.pop(-1)
-
 	
 	def cima(self):
 		if self.direcao != 'baixo':
 			self.direcao = 'cima'
 
-
 	def baixo(self):
 		if self.direcao != 'cima':
 			self.direcao = 'baixo'
-
 
 	def direita(self):
 		if self.direcao != 'esquerda':
 			self.direcao = 'direita'
 
-
 	def esquerda(self):
 		if self.direcao != 'direita':
 			self.direcao = 'esquerda'
-
 
 	def colisao_frutinha(self, frutinha):
 		return self.corpo[0] == frutinha.posicao
@@ -63,7 +56,6 @@ class Snake:
 		self.pontos += 1
 		pygame.display.set_caption('Snake | Pontos : {}'.format(self.pontos))
 
-
 	def colisao_de_morte(self):
 		cabeca = self.corpo[0]
 		x = cabeca[0]
@@ -71,7 +63,6 @@ class Snake:
 		corpo = self.corpo[1:]
 
 		return x < 0 or y < 0 or x > 490 or y > 490 or cabeca in corpo or len(self.corpo) > self.tamanho_maximo
-
 
 	def dificuldade(self):
 		if self.pontos >= 5:

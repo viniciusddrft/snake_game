@@ -35,8 +35,6 @@ if __name__ == "__main__":
 					cobrinha.direita()
 					break
 
-		
-
 		if cobrinha.colisao_frutinha(frutinha):
 			cobrinha.comer()
 			cobrinha.dificuldade()
