@@ -1,7 +1,6 @@
 import random
 import pygame
 
-
 class Snake:
 	cor = (0,255,0)
 	tamanho = (10, 10)
@@ -17,8 +16,8 @@ class Snake:
 
 
 	def blit(self, screen):
-		for posicao in cobrinha.corpo:
-			screen.blit(cobrinha.textura, posicao)
+		for posicao in self.corpo:
+			screen.blit(self.textura, posicao)
 
 
 	def andar(self):
@@ -95,80 +94,3 @@ class Snake:
 			self.velocidade += 1
 		elif self.pontos >=50:
 			self.velocidade += 1
-
-
-class Frutinha:
-	cor = (255,0,0)
-	tamanho = (10, 10)
-
-
-	def __init__(self, cobrinha):
-		self.textura = pygame.Surface(self.tamanho)
-		self.textura.fill(self.cor)
-		self.posicao = Frutinha.criar_posicao(cobrinha)
-
-	@staticmethod
-	def criar_posicao(cobrinha):
-		x = random.randint(0,49) * 10
-		y = random.randint(0,49) * 10
-		while (x , y) in cobrinha.corpo:
-			frutinha.criar_posicao(cobrinha)
-		return x, y
-
-
-	def blit(self, screen):
-			screen.blit(frutinha.textura, frutinha.posicao)
-			
-
-if __name__ == "__main__":
-	pygame.init()
-
-	resolucao = (500, 500)
-	screen = pygame.display.set_mode(resolucao)
-	pygame.display.set_caption('Snake')
-	clock = pygame.time.Clock()
-	preto = (0, 0, 0)
-
-	cobrinha = Snake()
-	frutinha = Frutinha(cobrinha)
-
-	while True:
-		clock.tick(cobrinha.velocidade)
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				exit()
-
-			elif event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_UP or event.key == pygame.K_w:
-					cobrinha.cima()
-					break
-				elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-					cobrinha.baixo()
-					break
-				elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-					cobrinha.esquerda()
-					break
-				elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-					cobrinha.direita()
-					break
-
-		
-
-		if cobrinha.colisao_frutinha(frutinha):
-			cobrinha.comer()
-			cobrinha.dificuldade()
-			frutinha = Frutinha(cobrinha)
-
-		if cobrinha.colisao_de_morte():
-			cobrinha = Snake()
-			pygame.display.set_caption('Snake')
-
-		cobrinha.andar()
-		screen.fill(preto)
-		try:
-			frutinha.blit(screen)
-		except:
-			frutinha.blit(screen)
-		cobrinha.blit(screen)
-		pygame.display.update()
-			
